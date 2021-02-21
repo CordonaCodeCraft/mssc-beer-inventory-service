@@ -20,7 +20,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -29,22 +31,25 @@ import java.util.UUID;
  * Created by jt on 2019-01-26.
  */
 @Getter
-<span class="nc" id="L32">@Setter</span>
-<span class="fc" id="L33">@NoArgsConstructor</span>
+<span class="nc" id="L34">@Setter</span>
+<span class="fc" id="L35">@NoArgsConstructor</span>
 @Entity
 public class BeerInventory extends BaseEntity{
 
-<span class="pc" id="L37">    @Builder</span>
+<span class="nc" id="L39">    @Builder</span>
     public BeerInventory(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, UUID beerId,
                          String upc, Integer quantityOnHand) {
-<span class="fc" id="L40">        super(id, version, createdDate, lastModifiedDate);</span>
-<span class="fc" id="L41">        this.beerId = beerId;</span>
-<span class="fc" id="L42">        this.upc = upc;</span>
-<span class="fc" id="L43">        this.quantityOnHand = quantityOnHand;</span>
-<span class="fc" id="L44">    }</span>
+<span class="nc" id="L42">        super(id, version, createdDate, lastModifiedDate);</span>
+<span class="nc" id="L43">        this.beerId = beerId;</span>
+<span class="nc" id="L44">        this.upc = upc;</span>
+<span class="nc" id="L45">        this.quantityOnHand = quantityOnHand;</span>
+<span class="nc" id="L46">    }</span>
 
-<span class="nc" id="L46">    private UUID beerId;</span>
-<span class="nc" id="L47">    private String upc;</span>
-<span class="pc" id="L48">    private Integer quantityOnHand = 0;</span>
+    @Type(type=&quot;org.hibernate.type.UUIDCharType&quot;)
+    @Column(length = 36, columnDefinition = &quot;varchar(36)&quot;, updatable = false, nullable = false)
+<span class="nc" id="L50">    private UUID beerId;</span>
+
+<span class="nc" id="L52">    private String upc;</span>
+<span class="pc" id="L53">    private Integer quantityOnHand = 0;</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

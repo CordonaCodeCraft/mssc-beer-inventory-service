@@ -38,12 +38,12 @@ import java.util.UUID;
 @MappedSuperclass
 public class BaseEntity {
 
-<span class="fc" id="L41">    public BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {</span>
-<span class="fc" id="L42">        this.id = id;</span>
-<span class="fc" id="L43">        this.version = version;</span>
-<span class="fc" id="L44">        this.createdDate = createdDate;</span>
-<span class="fc" id="L45">        this.lastModifiedDate = lastModifiedDate;</span>
-<span class="fc" id="L46">    }</span>
+<span class="nc" id="L41">    public BaseEntity(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate) {</span>
+<span class="nc" id="L42">        this.id = id;</span>
+<span class="nc" id="L43">        this.version = version;</span>
+<span class="nc" id="L44">        this.createdDate = createdDate;</span>
+<span class="nc" id="L45">        this.lastModifiedDate = lastModifiedDate;</span>
+<span class="nc" id="L46">    }</span>
 
     @Id
     @GeneratedValue(generator = &quot;UUID&quot;)
@@ -52,11 +52,11 @@ public class BaseEntity {
             strategy = &quot;org.hibernate.id.UUIDGenerator&quot;
     )
     @Type(type=&quot;org.hibernate.type.UUIDCharType&quot;)
-    @Column(length = 36, columnDefinition = &quot;varchar&quot;, updatable = false, nullable = false )
+    @Column(length = 36, columnDefinition = &quot;varchar(36)&quot;, updatable = false, nullable = false )
 <span class="nc" id="L56">    private UUID id;</span>
 
     @Version
-<span class="fc" id="L59">    private Long version;</span>
+<span class="nc" id="L59">    private Long version;</span>
 
     @CreationTimestamp
     @Column(updatable = false)
