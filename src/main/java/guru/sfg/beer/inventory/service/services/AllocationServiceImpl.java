@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Created by jt on 2019-09-09.
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -58,27 +61,24 @@ public class AllocationServiceImpl implements AllocationService {
                 beerOrderLine.setQuantityAllocated(allocatedQty + inventory);
                 beerInventory.setQuantityOnHand(0);
 
-            }
-
-            if (beerInventory.getQuantityOnHand() == 0) {
                 beerInventoryRepository.delete(beerInventory);
             }
         });
 
     }
 
-//    @Override
-//    public void deallocateOrder(BeerOrderDto beerOrderDto) {
-//        beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
-//            BeerInventory beerInventory = BeerInventory.builder()
-//                    .beerId(beerOrderLineDto.getBeerId())
-//                    .upc(beerOrderLineDto.getUpc())
-//                    .quantityOnHand(beerOrderLineDto.getQuantityAllocated())
-//                    .build();
-//
-//            BeerInventory savedInventory = beerInventoryRepository.save(beerInventory);
-//
-//            log.debug("Saved Inventory for beer upc: " + savedInventory.getUpc() + " inventory id: " + savedInventory.getId());
-//        });
-//    }
+    @Override
+    public void deallocateOrder(BeerOrderDto beerOrderDto) {
+        beerOrderDto.getBeerOrderLines().forEach(beerOrderLineDto -> {
+            BeerInventory beerInventory = BeerInventory.builder()
+                    .beerId(beerOrderLineDto.getBeerId())
+                    .upc(beerOrderLineDto.getUpc())
+                    .quantityOnHand(beerOrderLineDto.getQuantityAllocated())
+                    .build();
+
+            BeerInventory savedInventory = beerInventoryRepository.save(beerInventory);
+
+            log.debug("Saved Inventory for beer upc: " + savedInventory.getUpc() + " inventory id: " + savedInventory.getId());
+        });
+    }
 }
